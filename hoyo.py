@@ -1,7 +1,5 @@
 from selenium import webdriver
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 import time
 
@@ -17,20 +15,20 @@ driver.get("https://act.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e20
 time.sleep(2)
 
 # XPath를 사용하여 버튼 요소 찾기
-button = driver.find_element(By.XPATH, "/html/body/div[4]/div/div/span")
+button = driver.find_element(By.XPATH, "//span[contains(@class, 'guide-close')]")
 
 # 버튼 클릭
 button.click()
 
-time.sleep(2)
+time.sleep(1)
 
 # XPath를 사용하여 버튼 요소 찾기
-button = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div/div[2]/div[1]/img")
+button = driver.find_element(By.XPATH, "//img[contains(@class, 'mhy-hoyolab-account-block__avatar-icon')]")
 
 # 버튼 클릭
 button.click()
 
-time.sleep(2)
+time.sleep(1)
 
 # 2. 입력 필드 찾기 (XPath 사용)
         
@@ -38,23 +36,25 @@ time.sleep(2)
 #iframe = driver.find_element(By.XPATH,"/html/body/div[2]/div/div[1]")
 driver.switch_to.frame(0)
 
-id = driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div[1]/form/div[3]/div[1]/input")
+id = driver.find_element(By.XPATH, "//input[@name='username' and @type='text']")
 
 # 3. 클릭
 id.click()
 
-# 4. 아이디 입력
-id.send_keys("your_id")  # 여기에 아이디 입력
+# # 4. 아이디 입력
+id.send_keys("your id")  # 여기에 아이디 입력
+time.sleep(1)
 
-password = driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[2]/div[1]/form/div[4]/div[1]/input")
+password = driver.find_element(By.XPATH, "//input[@name='password' and @type='password']")
 
 # 3. 클릭
 password.click()
 
 # 4. 아이디 입력
-password.send_keys("your_password")  # 여기에 아이디 입력
+password.send_keys("your password")  # 여기에 아이디 입력
+time.sleep(1)
 
-login = driver.find_element(By.XPATH,"/html/body/div[2]/div/div/div[2]/div[1]/form/button")
+login = driver.find_element(By.XPATH,"//button[@type='submit' and contains(@class, 'el-button--primary')]/span[text()='로그인']")
 
 login.click()
 
@@ -63,26 +63,22 @@ time.sleep(2)
 # 로그인 후, 기본(원래) 프레임으로 돌아가기
 driver.switch_to.default_content()
 
-button = driver.find_element(By.XPATH,"/html/body/div[1]/div[5]/div/div/div/div[3]/span[1]")
+button = driver.find_element(By.XPATH,"//span[text()='더보기']")
 
 button.click()
 time.sleep(2)
 
-count = driver.find_element(By.XPATH,"/html/body/div[1]/div[5]/div/div/div/div[1]/div[1]/div[1]/span").text
+count = driver.find_element(By.XPATH,"//span[@class='sign-num']").text
 
 count = int(count)
 
 target = count + 1
 
-xpath = f'/html/body/div[1]/div[5]/div/div/div/div[2]/div[{target}]'
+xpath = f"//div[contains(@class, 'components-home-assets-__sign-content-test_---item-day---1C_BmH') and contains(text(), '{target}일째')]"
 
 button = driver.find_element(By.XPATH,xpath)
 button.click()
-time.sleep(2)
 
-button = driver.find_element(By.XPATH,"/html/body/div[5]/div[2]/div[2]/div")
-
-button.click()
 time.sleep(2)
 
 driver.quit()
