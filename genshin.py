@@ -45,6 +45,11 @@ password_input.send_keys("your password")
 login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'el-button--primary')]/span[text()='로그인']")))
 login_button.click()
 
+# 로그인 창이 사라졌는지 확인 (로그인 창의 요소를 기준으로 기다림)
+WebDriverWait(driver, 10).until(
+    EC.invisibility_of_element_located((By.XPATH, "//input[@name='username' and @type='text']"))
+)
+
 # 로그인 후, 기본(원래) 프레임으로 돌아가기
 driver.switch_to.default_content()
 
